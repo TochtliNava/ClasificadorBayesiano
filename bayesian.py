@@ -14,11 +14,7 @@ for dato in df["Class"]:
     if(dato == "Besni"):
         c_Besni = c_Besni + 1
 
-print(c_kecimen, c_Besni)
-
 m_c_kecimen, m_c_Besni = c_kecimen/df.shape[0], c_Besni/df.shape[0]
-
-print(m_c_kecimen, m_c_Besni)
 
 m_area = df["Area"].mean()
 m_majorAxis = df["MajorAxisLength"].mean()
@@ -72,4 +68,32 @@ var_b_convexArea = df["ConvexArea"][450:899].var()
 var_b_extent = df["Extent"][450:899].var()
 var_b_perimeter = df["Perimeter"][450:899].var()
 
-print(p(130, 122.916666, 176.25))
+print("Ingrese los datos para clasificar (Bayesian classifier)")
+area = float(input("Area: "))
+majorAxis = float(input("Major Axis: "))
+menorAxis = float(input("Minor Axis: "))
+eccentricity = float(input("Eccentricity: "))
+convexArea = float(input("Convex Area: "))
+extent = float(input("Extent: "))
+perimeter = float(input("Perimeter: "))
+
+p_k_area = p(area, var_k_area, m_k_area)
+p_k_majorAxis = p(majorAxis, var_k_majorAxis, m_k_majorAxis)
+p_k_menorAxis = p(menorAxis, var_k_menorAxis, m_k_menorAxis)
+p_k_eccentricity = p(eccentricity, var_k_eccentricity, m_k_eccentricity)
+p_k_convexArea = p(convexArea, var_k_convexArea, m_k_convexArea)
+p_k_extent = p(extent, var_k_extent, m_k_extent)
+p_k_perimeter = p(perimeter, var_k_perimeter, m_k_perimeter)
+
+p_b_area = p(area, var_b_area, m_b_area)
+p_b_majorAxis = p(majorAxis, var_b_majorAxis, m_b_majorAxis)
+p_b_menorAxis = p(menorAxis, var_b_menorAxis, m_b_menorAxis)
+p_b_eccentricity = p(eccentricity, var_b_eccentricity, m_b_eccentricity)
+p_b_convexArea = p(convexArea, var_b_convexArea, m_b_convexArea)
+p_b_extent = p(extent, var_b_extent, m_b_extent)
+p_b_perimeter = p(perimeter, var_b_perimeter, m_b_perimeter)
+
+v_k = m_c_kecimen * p_k_area * p_k_majorAxis * p_k_menorAxis * p_k_eccentricity * p_k_convexArea * p_k_extent * p_k_perimeter
+v_b = m_c_Besni * p_b_area * p_b_majorAxis * p_b_menorAxis * p_b_eccentricity * p_b_convexArea * p_b_extent * p_b_perimeter
+
+print(f"\n{"Kecimen" if v_k > v_b else "Besni"} P = {v_k if v_k > v_b else v_b}")
