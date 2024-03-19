@@ -1,0 +1,2 @@
+python bayesian.py
+pause
