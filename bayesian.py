@@ -97,3 +97,36 @@ v_k = m_c_kecimen * p_k_area * p_k_majorAxis * p_k_menorAxis * p_k_eccentricity 
 v_b = m_c_Besni * p_b_area * p_b_majorAxis * p_b_menorAxis * p_b_eccentricity * p_b_convexArea * p_b_extent * p_b_perimeter
 
 print(f"\n{"Kecimen" if v_k > v_b else "Besni"} P = {v_k if v_k > v_b else v_b}")
+
+#   MCE
+
+mce = 0
+
+for i in range(df.shape[0]):
+    p_k_area = p(df["Area"][i], var_k_area, m_k_area)
+    p_k_majorAxis = p(df["MajorAxisLength"][i], var_k_majorAxis, m_k_majorAxis)
+    p_k_menorAxis = p(df["MinorAxisLength"][i], var_k_menorAxis, m_k_menorAxis)
+    p_k_eccentricity = p(df["Eccentricity"][i], var_k_eccentricity, m_k_eccentricity)
+    p_k_convexArea = p(df["ConvexArea"][i], var_k_convexArea, m_k_convexArea)
+    p_k_extent = p(df["Extent"][i], var_k_extent, m_k_extent)
+    p_k_perimeter = p(df["Perimeter"][i], var_k_perimeter, m_k_perimeter)
+
+    p_b_area = p(df["Area"][i], var_b_area, m_b_area)
+    p_b_majorAxis = p(df["MajorAxisLength"][i], var_b_majorAxis, m_b_majorAxis)
+    p_b_menorAxis = p(df["MinorAxisLength"][i], var_b_menorAxis, m_b_menorAxis)
+    p_b_eccentricity = p(df["Eccentricity"][i], var_b_eccentricity, m_b_eccentricity)
+    p_b_convexArea = p(df["ConvexArea"][i], var_b_convexArea, m_b_convexArea)
+    p_b_extent = p(df["Extent"][i], var_b_extent, m_b_extent)
+    p_b_perimeter = p(df["Perimeter"][i], var_b_perimeter, m_b_perimeter)
+
+    v_k = m_c_kecimen * p_k_area * p_k_majorAxis * p_k_menorAxis * p_k_eccentricity * p_k_convexArea * p_k_extent * p_k_perimeter
+    v_b = m_c_Besni * p_b_area * p_b_majorAxis * p_b_menorAxis * p_b_eccentricity * p_b_convexArea * p_b_extent * p_b_perimeter
+
+    clase = "Kecimen" if v_k > v_b else "Besni"
+
+    if(clase != df["Class"][i]):
+        mce = mce + 1
+
+
+mce = mce/df.shape[0] * 100
+print(f"\nError = {mce}%")
