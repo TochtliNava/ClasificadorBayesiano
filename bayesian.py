@@ -96,7 +96,9 @@ p_b_perimeter = p(perimeter, var_b_perimeter, m_b_perimeter)
 v_k = m_c_kecimen * p_k_area * p_k_majorAxis * p_k_menorAxis * p_k_eccentricity * p_k_convexArea * p_k_extent * p_k_perimeter
 v_b = m_c_Besni * p_b_area * p_b_majorAxis * p_b_menorAxis * p_b_eccentricity * p_b_convexArea * p_b_extent * p_b_perimeter
 
-print(f"\n{"Kecimen" if v_k > v_b else "Besni"} P = {v_k if v_k > v_b else v_b}")
+clase = "Kecimen" if v_k > v_b else "Besni"
+
+print(f"\n{clase} P = {v_k if v_k > v_b else v_b}")
 
 #   MCE
 
@@ -128,5 +130,5 @@ for i in range(df.shape[0]):
         mce = mce + 1
 
 
-mce = mce/df.shape[0] * 100
+mce = (mce*100)/df.shape[0]
 print(f"\nError = {mce}%")
